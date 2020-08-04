@@ -1,0 +1,21 @@
+{
+  "name": "localfont",
+  "version": "2.0.0",
+  "description": " text to 2D paths, using TTF (and other) fonts",
+  "main": "index.js",
+  "scripts": {
+    "cli": "node node_modules/@jscad/cli/cli.js index.js -of svg"
+  },
+  "keywords": [
+    "jscad",
+    "text",
+    "font",
+    "outline"
+  ],
+  "author": "z3dev",
+  "license": "MIT",
+  "dependencies": {
+    "opentype.js": "^1.1.0"
+  },
+  "devDependencies": {}
+}

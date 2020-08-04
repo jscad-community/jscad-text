@@ -1,0 +1,22 @@
+{
+  "name": "googlefont",
+  "version": "2.0.0",
+  "description": " text to 2D paths, using TTF (and other) fonts",
+  "main": "index.js",
+  "scripts": {
+    "cli": "node index.js"
+  },
+  "keywords": [
+    "jscad",
+    "text",
+    "font",
+    "outline"
+  ],
+  "author": "z3dev",
+  "license": "MIT",
+  "dependencies": {
+    "node-fetch": "^2.6.0",
+    "opentype.js": "^1.1.0"
+  },
+  "devDependencies": {}
+}
