@@ -14,8 +14,6 @@
   ],
   "author": "z3dev",
   "license": "MIT",
-  "dependencies": {
-    "opentype.js": "^1.1.0"
-  },
+  "dependencies": {},
   "devDependencies": {}
 }
