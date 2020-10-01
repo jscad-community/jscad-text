@@ -49,15 +49,17 @@ This project is the easiest to use, as fonts are read from local files. Just fin
 
 Setup:
 ```
-cd localfont
 npm install
+cd localfont
+ln -s ../../jscad-text ./jscad-text
+cd ..
 ```
 
 Execution:
 ```
-npm run cli -- -of svg
+npm run example
 ```
-And open index.svg using any browser.
+And open 'localfont/index.svg' using any browser.
 
 The contents of 'index.js' can be modified to change the path to the font file, or change the options to the textToPaths() function.
 This is also a typical JSCAD design, and can be nodified to do whatever you want with the paths.
@@ -73,13 +75,14 @@ Setup:
 ```
 cd googlefont
 npm install
+ln -s ../../jscad-text ./jscad-text
 ```
 
 Execution:
 ```
-node index.js
+npm run cli
 ```
-And open text.svg using any browser.
+And open 'text.svg' using any browser.
 
 ### Closing Remark
 
@@ -93,7 +96,7 @@ Putting these two together inside a website... well... it's not impossible. But 
 
 **THIS PROJECT ONLY WORKS WITH JSCAD V2.**
 
-As of today, the JSCAD V2 libraries / applications are only available via [GITHUB](https://github.com/jscad/OpenJSCAD.org)
+As of today, the JSCAD V2 libraries / applications are available NPM as part of the '@jscad' organization.
 
 See the user guide on [Early Adoption of V2](https://openjscad.org/dokuwiki/doku.php?id=early_v2) for some tips.
 

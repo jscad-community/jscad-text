@@ -4,7 +4,8 @@
   "description": "Module to convert text to 2D paths, using TTF (and other) fonts",
   "main": "src/index.js",
   "scripts": {
-    "test": "ava 'tests/*.test.js' --verbose --timeout 2m"
+    "example": "node node_modules/@jscad/cli/cli.js localfont -of svg",
+    "test": "ava './tests/*.test.js' --verbose --timeout 2m"
   },
   "keywords": [
     "jscad",
@@ -15,6 +16,7 @@
   "author": "z3dev",
   "license": "MIT",
   "dependencies": {
+    "@jscad/cli": "alpha",
     "opentype.js": "^1.1.0"
   },
   "devDependencies": {

@@ -13,7 +13,7 @@ const { loadFont, textToPaths } = require('./jscad-text')
 const main = () => {
   // load a font
   // NOTE: Relative paths are relative to where CLI is invoked. If having issues then try a full path.
-  let font = loadFont('./fonts/Habana.ttf')
+  let font = loadFont('./localfont/fonts/Habana.ttf')
   // convert text to 2D paths
   let paths = textToPaths({font, fontSize: 96, segments: 72}, 'JSCAD is awesome!!!')
   // adjust the paths
