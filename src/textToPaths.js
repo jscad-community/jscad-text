@@ -1,4 +1,4 @@
-const opentype = require('opentype.js')
+const opentype = require('./loadOpentype')
 
 const { colors, geometries } = require('@jscad/modeling')
 
