@@ -45,7 +45,11 @@ Each of the eamples is a small stand-alone NPM project; localfont and googlefont
 
 ### Local Font Project
 
-This project is the easiest to use, as fonts are read from local files. Just find a nice font, and write down the file path.
+This project is the easiest to use, as fonts are read from local files.
+Just find a nice font, and copy the file into the localFont folder.
+- MacOS : see /Library/Fonts or /System/Library/Fonts
+- Windows :
+- Linux : 
 
 Setup:
 ```
