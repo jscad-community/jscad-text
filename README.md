@@ -24,6 +24,7 @@ There are two examples; one which reads local font files, and one that downloads
 
 - [Installation](#installation)
 - [Examples](#examples)
+- [Projects](#projects)
 - [Special Note](#special-note)
 - [License](#license)
 
@@ -88,21 +89,52 @@ npm run cli
 ```
 And open 'text.svg' using any browser.
 
-### Closing Remark
+## Projects
 
-You probably now know that fonts are not trivial to work with. The openfont.js library makes that easier.
+Still there...
 
-You probably now know that HTTP downloads are painful in JavaScript.  The node-fetch library makes that easier.
+So, here's how to use this library inside a project (JSCAD design).
 
-Putting these two together inside a website... well... it's not impossible. But JSCAD won't do it.
+If not already, create a new folder for the project. (This example is using 'newproject' as the folder name.)
+
+Download this library, unzip, and copy everything to the project folder.
+Click on the green CODE above, and select Download ZIP.
+
+Now, find a font, and copy that into the project folder.
+
+Inside the project folder, create a file called index.js, and add the following code.
+```
+const { primitives } = require('@jscad/modeling')
+
+const { loadFontFromData, textToPaths } = require('./jscad-text-master')
+
+const fs = require('fs')
+
+const main = (params) => {
+  const data = fs.readFileSync('newproject/Habana.ttf') // CHANGE THIS TO THE FONT FILE NAME
+
+  const font = loadFontFromData(data)
+
+  const paths = textToPaths({font, segments: 144}, 'JSCAD ROCKS!!')
+
+  return paths
+}
+
+module.exports = { main }
+```
+
+Almost there. Now download the opentype.js library from here; https://github.com/opentypejs/opentype.js
+Unzip the contents, and copy opentype.js/dist/opentype.js to newproject/jscad-text-master/src/opentype.js
+
+Done!
+
+Now, just drag and drop the project folder onto the JSCAD website.
 
 ## Special Note
 
 **THIS PROJECT ONLY WORKS WITH JSCAD V2.**
 
-As of today, the JSCAD V2 libraries / applications are available NPM as part of the '@jscad' organization.
-
-See the user guide on [Early Adoption of V2](https://openjscad.org/dokuwiki/doku.php?id=early_v2) for some tips.
+See the [User Guide](https://openjscad.xyz/guide.html) for some tips.
 
 ## License
 
