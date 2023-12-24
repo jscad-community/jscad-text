@@ -16,8 +16,8 @@
   "author": "z3dev",
   "license": "MIT",
   "dependencies": {
-    "@jscad/cli": "2.0.0",
-    "opentype.js": "1.1.0"
+    "@jscad/cli": "2.3.0",
+    "opentype.js": "1.2.0"
   },
   "devDependencies": {
     "ava": "3.15.0"
