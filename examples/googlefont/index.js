@@ -1,14 +1,9 @@
 const fs = require('fs')
-
 const fetch = require('node-fetch');
-
 const opentype = require('opentype.js');
-
-const { textToPaths } = require('./jscad-text');
-
-const { transforms } = require('@jscad/modeling');
-
+const { transforms, colors } = require('@jscad/modeling');
 const { solidsAsBlob } = require('@jscad/io');
+const { textToPaths } = require('../../dist/src/index.js')
 
 // Google Fonts information
 // See https://developers.google.com/fonts/
@@ -62,7 +57,9 @@ const selectFont = (fontList) => {
 
   // adjust the paths
   paths = transforms.rotate([0, 0, Math.PI/4], paths)
-  //console.log(paths)
+
+  // Color the paths
+  paths = colors.colorize([0, 0, 0], paths);
 
   // convert the paths to SVG
   const outputData = solidsAsBlob(paths, {format: 'svg'})
