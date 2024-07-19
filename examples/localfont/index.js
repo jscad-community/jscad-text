@@ -1,8 +1,8 @@
-const { transforms } = require('@jscad/modeling')
+const { transforms, colors } = require('@jscad/modeling')
 
 // FIXME create a file system link to use the following require path
 //   ln -s ../../jscad-text ./jscad-text
-const { loadFont, textToPaths } = require('./jscad-text')
+const { loadFont, textToPaths } = require('../../dist/src/index.js')
 
 /*
  * This is an example JSCAD design that loads a font from a local file system,
@@ -13,11 +13,14 @@ const { loadFont, textToPaths } = require('./jscad-text')
 const main = () => {
   // load a font
   // NOTE: Relative paths are relative to where CLI is invoked. If having issues then try a full path.
-  let font = loadFont('./localfont/fonts/Habana.ttf')
+  let font = loadFont('./fonts/Habana.ttf')
   // convert text to 2D paths
   let paths = textToPaths({font, fontSize: 96, segments: 72}, 'JSCAD is awesome!!!')
+  // Color in the paths
+  paths = colors.colorize([0, 0, 0], paths)
   // adjust the paths
   paths = transforms.rotate([0, 0, Math.PI/4], paths)
+
   return paths
 }
 

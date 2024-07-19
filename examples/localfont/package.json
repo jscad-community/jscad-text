@@ -4,7 +4,7 @@
   "description": " text to 2D paths, using TTF (and other) fonts",
   "main": "index.js",
   "scripts": {
-    "cli": "node node_modules/@jscad/cli/cli.js index.js -of svg"
+    "cli": "npx jscad index.js -of svg"
   },
   "keywords": [
     "jscad",
@@ -14,6 +14,7 @@
   ],
   "author": "z3dev",
   "license": "MIT",
-  "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "@jscad/cli": "^2.3.2"
+  }
 }
