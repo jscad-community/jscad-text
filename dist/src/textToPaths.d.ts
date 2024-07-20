@@ -4,7 +4,7 @@ import { Font } from "opentype.js";
  * Convert the given text to a set of outline paths.
  * @return {[path2]} set of outline paths
  */
-interface TextToPathsOptions {
+export interface TextToPathsOptions {
     font: Font;
     fontSize?: number;
     xOffset?: number;
