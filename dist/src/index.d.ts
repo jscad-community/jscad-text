@@ -1,3 +1,4 @@
 import { textToPaths } from "./textToPaths";
 import { loadFont, loadFontAsync, loadFontFromData } from "./loadFont";
-export { textToPaths, loadFont, loadFontAsync, loadFontFromData };
+import { extrudeText } from "./extrudeText";
+export { textToPaths, loadFont, loadFontAsync, loadFontFromData, extrudeText };

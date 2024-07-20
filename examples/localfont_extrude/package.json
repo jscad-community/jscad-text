@@ -1,0 +1,23 @@
+{
+  "name": "localfont_extrude",
+  "version": "2.0.0",
+  "description": " text to 2D paths, using TTF (and other) fonts",
+  "main": "index.js",
+  "scripts": {
+    "cli": "npx jscad index.js -of svg"
+  },
+  "keywords": [
+    "jscad",
+    "text",
+    "font",
+    "outline"
+  ],
+  "author": "z3dev",
+  "license": "MIT",
+  "devDependencies": {
+    "@jscad/cli": "^2.3.2"
+  },
+  "dependencies": {
+    "@jscad/stl-serializer": "^2.1.17"
+  }
+}

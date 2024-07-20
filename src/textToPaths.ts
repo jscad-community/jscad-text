@@ -8,7 +8,7 @@ const SVGpxPmm = 1 / 0.2822222; // used for scaling SVG coordinates(PX) to JSCAD
  * @return {[path2]} set of outline paths
  */
 
-interface TextToPathsOptions {
+export interface TextToPathsOptions {
   font: Font;
   fontSize?: number;
   xOffset?: number;
