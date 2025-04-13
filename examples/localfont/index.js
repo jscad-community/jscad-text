@@ -1,7 +1,5 @@
 const { transforms, colors } = require('@jscad/modeling')
 
-// FIXME create a file system link to use the following require path
-//   ln -s ../../jscad-text ./jscad-text
 const { loadFont, textToPaths } = require('../../dist/src/index.js')
 
 /*
@@ -9,6 +7,7 @@ const { loadFont, textToPaths } = require('../../dist/src/index.js')
  * and then uses the font to create 2D paths.
  *
  * The paths can be converted to SVG, DXF, or JSON using the CLI options.
+ * See package.json
  */
 const main = () => {
   // load a font

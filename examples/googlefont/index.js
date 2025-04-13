@@ -1,8 +1,10 @@
 const fs = require('fs')
 const fetch = require('node-fetch');
 const opentype = require('opentype.js');
+
 const { transforms, colors } = require('@jscad/modeling');
 const { solidsAsBlob } = require('@jscad/io');
+
 const { textToPaths } = require('../../dist/src/index.js')
 
 // Google Fonts information

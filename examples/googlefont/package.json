@@ -15,7 +15,7 @@
   "author": "z3dev",
   "license": "MIT",
   "dependencies": {
-    "@jscad/io": "^2.4.8",
+    "@jscad/io": "^2.4.0",
     "node-fetch": "^2.6.0"
   }
 }
