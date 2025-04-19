@@ -1,11 +1,11 @@
 {
   "name": "jscad-text",
-  "version": "3.0.0",
-  "description": "Module to convert text to 2D paths, using TTF (and other) fonts",
+  "version": "3.0.1",
+  "description": "JSCAD module to convert text to 2D paths, using TTF (and other) fonts",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --module commonjs",
     "test": "ava"
   },
   "keywords": [
@@ -17,21 +17,21 @@
   "author": "z3dev",
   "license": "MIT",
   "dependencies": {
-    "@jscad/modeling": "^2.12.2",
-    "opentype.js": "^1.3.4"
+    "@jscad/modeling": "^2.12.0",
+    "opentype.js": "^1.3.0"
   },
   "devDependencies": {
     "@ava/typescript": "^5.0.0",
-    "@types/opentype.js": "^1.3.8",
-    "ava": "^6.1.3",
-    "typescript": "^5.5.3"
+    "@types/opentype.js": "^1.3.0",
+    "ava": "^6.1.0",
+    "typescript": "^5.5.0"
   },
   "ava": {
     "typescript": {
       "rewritePaths": {
         "tests/": "dist/tests/"
       },
-      "compile": "tsc"
+      "compile": false
     }
   }
 }

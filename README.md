@@ -55,16 +55,17 @@ Just find a nice font, and copy the file into the localFont folder.
 Setup:
 ```
 npm install
-cd localfont
-ln -s ../../jscad-text ./jscad-text
-cd ..
+
+cd examples/localfont
+
+npm install
 ```
 
 Execution:
 ```
-npm run example
+npm run cli
 ```
-And open 'localfont/index.svg' using any browser.
+And open 'index.svg' using any browser.
 
 The contents of 'index.js' can be modified to change the path to the font file, or change the options to the textToPaths() function.
 This is also a typical JSCAD design, and can be nodified to do whatever you want with the paths.
@@ -78,16 +79,18 @@ Another cool library called 'node-fetch' is being used to download the font from
 
 Setup:
 ```
-cd googlefont
 npm install
-ln -s ../../jscad-text ./jscad-text
+
+cd examples/googlefont
+
+npm install
 ```
 
 Execution:
 ```
 npm run cli
 ```
-And open 'text.svg' using any browser.
+And open 'test.svg' using any browser.
 
 ## Projects
 
