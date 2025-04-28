@@ -25,6 +25,7 @@ There are two examples; one which reads local font files, and one that downloads
 - [Installation](#installation)
 - [Examples](#examples)
 - [Projects](#projects)
+- [Websites](#websites)
 - [Special Note](#special-note)
 - [License](#license)
 
@@ -96,12 +97,14 @@ And open 'test.svg' using any browser.
 
 Still there...
 
-So, here's how to use this library inside a project (JSCAD design).
+So, here's how to use this library inside a JSCAD design (project).
 
 If not already, create a new folder for the project. (This example is using 'newproject' as the folder name.)
 
-Download this library, unzip, and copy everything to the project folder.
-Click on the green CODE above, and select Download ZIP.
+Download this package by clicking on the green 'CODE' button, and select 'Download ZIP'.
+Then unzip the contents.
+
+Copy the dist/jscad-text.commonjs.js file into the project, i.e. the 'newproject' directory.
 
 Now, find a font, and copy that into the project folder.
 
@@ -109,7 +112,7 @@ Inside the project folder, create a file called index.js, and add the following 
 ```
 const { primitives } = require('@jscad/modeling')
 
-const { loadFontFromData, textToPaths } = require('./jscad-text-master')
+const { loadFontFromData, textToPaths } = require('./jscad-text.commonjs.js')
 
 const fs = require('fs')
 
@@ -126,12 +129,43 @@ const main = (params) => {
 module.exports = { main }
 ```
 
-Almost there. Now download the opentype.js library from here; https://github.com/opentypejs/opentype.js
-Unzip the contents, and copy opentype.js/dist/opentype.js to newproject/jscad-text-master/src/opentype.js
+The project folder (newproject) should now have the following contents.
+```
+    index.js
+    jscad-text.commonjs.js
+    Habana.ttf
+```
 
 Done!
 
-Now, just drag and drop the project folder onto the JSCAD website.
+Now, just drag and drop the project folder onto the JSCAD design website.
+
+## Websites
+
+This project builds packages for use in websites; dist/jscad-text.min.js.
+It's only provided in UMD format, which exposes a global variable called jscadText.
+
+Here's how to use it.
+```
+const { booleans, colors, primitives } = jscadModeling
+const { loadFontFromData, textToPaths } = jscadText
+
+const demo = async (parameters) => {
+  // fetch the font into a buffer
+  const buffer = await fetch('./dist/Habana.ttf').then(res => res.arrayBuffer());
+  // convert the buffer to a opentype font
+  const font = loadFontFromData(buffer)
+  // create JSCAD paths using the font
+  const paths = textToPaths({ font }, "JSCAD Rocks!")
+  return paths
+}
+```
+
+JSCAD modeling is required to use this package, and can be sourced from any of the JS delivery sites.
+```
+<script language="javascript" src="https://unpkg.com/@jscad/modeling"></script>
+```
+
 
 ## Special Note
 
