@@ -7,6 +7,14 @@
   "exports": "./dist/src/index.js",
   "browser": "./dist/jscad-text.min.js",
   "types": "./dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "require": "./dist/src/index.js",
+      "browser": "./dist/jscad-text.min.js",
+      "default": "./dist/src/index.js"
+    }
+  },
   "scripts": {
     "compile": "tsc --target es6 --module commonjs",
     "package": "rollup --config",
