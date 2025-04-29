@@ -1,6 +1,6 @@
 {
   "name": "jscad-text",
-  "version": "3.0.2",
+  "version": "3.0.3",
   "description": "JSCAD module to convert text to 2D paths, using TTF (and other) fonts",
   "type": "commonjs",
   "main": "./dist/src/index.js",
