@@ -14,7 +14,7 @@
     "build": "rollup --config",
     "tests": "ava 'tests/*.test.js'",
     "coverage": "c8 --all --reporter=html --reporter=text npm run tests",
-    "docs": "jsdoc2md --files 'src/*.js' > DOCS.md"
+    "docs": "jsdoc2md --files 'src/*.js' > README.md"
   },
   "keywords": [
     "jscad",
