@@ -2,29 +2,19 @@ import fs from 'fs'
 
 import opentype from "opentype.js"
 
-export const loadFontAsync = (url) => {
-  opentype.load(url, (err, font) => {
-    if (err) {
-      console.error("font could not be loaded: " + err)
-    } else {
-      console.log("font loaded", font)
-    }
-  })
-}
-
 /**
- * Load the font description from the given URL.
- * @param {String} url - URL of remote or local font file
- * @returns {Font} new font object with contents of font available
+ * Load the font description from the given file path.
+ * @param {String} path - path to local file, i.e. font
+ * @returns {Font} new font object which contains the contents of the font
  */
-export const loadFont = (url) => {
-  return opentype.parse(fs.readFileSync(url))
+export const loadFont = (path) => {
+  return opentype.parse(fs.readFileSync(path))
 }
 
 /**
  * Load the font description from the given data.
  * @param {ArrayBuffer} data - raw data from font file
- * @returns {Font} new font object with contents of font available
+ * @returns {Font} new font object which contains the contents of the font
  */
 export const loadFontFromData = (data) => {
   return opentype.parse(data)

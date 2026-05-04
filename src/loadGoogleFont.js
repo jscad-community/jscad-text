@@ -12,10 +12,10 @@ const apiUrl = `https://www.googleapis.com/webfonts/v1/webfonts?key=${apiKey}`;
  */
 const selectFont = (choice, variant, fontList) => {
   const family = fontList.items.find((item) => item.family === choice)
-  //console.log(family)
+  // console.log(family)
 
   const files = family.files
-  console.log('font variants(files)', files)
+  // console.log('font variants(files)', files)
   const fontUrl = files[variant]
   if (!fontUrl) {
     console.table(files)
@@ -25,11 +25,19 @@ const selectFont = (choice, variant, fontList) => {
   return fontUrl
 }
 
-/*
- * This is the main processing, which is asycronous (waiting is required).
- * This is required due to the fetching of data across the internet via HTTP protocols.
+/**
+ * Load the font from the Google Fonts website, using the given family and variant.
  *
- * Nothing is ever easy.
+ * This function is asycronous, and fetchs the data via the given fetch function.
+ * This is required due to the fetching of data across the internet via HTTP protocols.
+ * @see https://developers.google.com/fonts/
+ *
+ * NOTE: Uncomment the console statements to see available families and variants.
+ *
+ * @param {String} family - family name of font to load
+ * @param {String} variant - variant name of font to load
+ * @param {Function} fetch - function to use for fetching the font from Google
+ * @returns {Font} new font object which contains the contents of the font
  */
 export const loadGoogleFont = async (family, variant, fetch) => {
   // fetch the list of families, variants, etc.

@@ -4,7 +4,16 @@ const SVGpxPmm = 1 / 0.2822222 // used for scaling SVG coordinates(PX) to JSCAD 
 
 /**
  * Convert the given text to a set of outline paths.
- * @return {[path2]} set of outline paths
+ * @param {Object} options - options for the conversion
+ * @param {Font} options.font] - the font representing a loaded OpenType font file
+ * @param {Number} [options.fontSize=14] - size of the text in pixels
+ * @param {Number} [options.xOffset=0] - horizontal position of the beginning of the text
+ * @param {Number} [options.xOffset=0] - vertical position of the baseline of the text
+ * @param {Boolean} [options.fontKerning=true] - if true takes kerning information into account aa
+ * @param {Boolean} [options.fontHinting=true] - if true uses TrueType font hinting if available
+ * @param {Number} [options.segments=32] - number of segments to create per full rotation
+ * @param {String} text - text of which to convert to outlines
+ * @return {Array} list of outline paths, i.e. path2
  */
 export const textToPaths = (options = {}, text) => {
   const {
