@@ -1,4 +1,4 @@
-import { loadFontFromData } from '../../src/index.js'
+import { loadFontFromData } from './loadFont.js'
 
 // Google Fonts information
 // See https://developers.google.com/fonts/
