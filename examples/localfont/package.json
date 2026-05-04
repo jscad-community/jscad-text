@@ -1,11 +1,9 @@
 {
   "name": "localfont",
-  "version": "2.0.0",
-  "description": " text to 2D paths, using TTF (and other) fonts",
+  "version": "3.0.0",
+  "description": "Example project to convert text to 2D paths, using local fonts",
   "main": "index.js",
-  "scripts": {
-    "cli": "npx jscad index.js -of svg"
-  },
+  "type": "module",
   "keywords": [
     "jscad",
     "text",
@@ -13,8 +11,5 @@
     "outline"
   ],
   "author": "z3dev",
-  "license": "MIT",
-  "devDependencies": {
-    "@jscad/cli": "^2.3.0"
-  }
+  "license": "MIT"
 }
