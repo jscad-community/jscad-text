@@ -4,6 +4,7 @@ const SVGpxPmm = 1 / 0.2822222 // used for scaling SVG coordinates(PX) to JSCAD 
 
 /**
  * Convert the given text to a set of outline paths.
+ *
  * @param {Object} options - options for the conversion
  * @param {Font} options.font] - the font representing a loaded OpenType font file
  * @param {Number} [options.fontSize=14] - size of the text in pixels
@@ -14,6 +15,10 @@ const SVGpxPmm = 1 / 0.2822222 // used for scaling SVG coordinates(PX) to JSCAD 
  * @param {Number} [options.segments=32] - number of segments to create per full rotation
  * @param {String} text - text of which to convert to outlines
  * @return {Array} list of outline paths, i.e. path2
+ *
+ * @example
+ * const font = await loadWebFont(fontFileUrl, fetchFunc)
+ * let paths = textToPaths({font, fontSize: 96, segments: 72}, 'JSCAD is awesome!!!')
  */
 export const textToPaths = (options = {}, text) => {
   const {

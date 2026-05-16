@@ -32,12 +32,16 @@ const selectFont = (choice, variant, fontList) => {
  * This is required due to the fetching of data across the internet via HTTP protocols.
  * @see https://developers.google.com/fonts/
  *
- * NOTE: Uncomment the console statements to see available families and variants.
+ * NOTE: See the console output for hints about available variants.
  *
  * @param {String} family - family name of font to load
  * @param {String} variant - variant name of font to load
  * @param {Function} fetch - function to use for fetching the font from Google
  * @returns {Font} new font object which contains the contents of the font
+ *
+ * @example
+ * // see the examples for additional information
+ * const font = await loadGoogleFont(family, variant, fetchFunc)
  */
 export const loadGoogleFont = async (family, variant, fetch) => {
   // fetch the list of families, variants, etc.
