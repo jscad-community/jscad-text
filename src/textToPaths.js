@@ -157,6 +157,12 @@ const interpretCommands = (options, commands) => {
         break
     }
   }
+  // Some fonts omit the trailing Z on the last subpath
+  if (path) {
+    path = path2.close(path);
+    if (pathcolor) colorize(pathcolor, path);
+    paths.push(path);
+  }
   return paths
 }
 
