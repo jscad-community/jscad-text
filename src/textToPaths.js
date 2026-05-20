@@ -1,7 +1,5 @@
 import { path2, colorize, colorNameToRgb } from "@jscad/modeling"
 
-const SVGpxPmm = 1 / 0.2822222 // used for scaling SVG coordinates(PX) to JSCAD coordinates(MM)
-
 /**
  * Convert the given text to a set of outline paths.
  *
@@ -27,7 +25,7 @@ export const textToPaths = (options = {}, text) => {
     yOffset = 0, // position of the baseline
     fontKerning = true,
     segments = 32, // for interpretation to JSCAD paths
-    pxPmm = SVGpxPmm, // for interpretation to JSCAD paths
+    pxPmm = 1, // pixels per millimeter, used for interpretation to JSCAD paths
   } = options
 
   if (!font) throw new Error("font is a required option")
