@@ -8,6 +8,7 @@
  * @namespace jscad-text
  */
 export * from "./textToPaths.js";
+export * from "./textToGeom2.js";
 export * from "./loadFont.js";
 export * from "./loadGoogleFont.js";
 export * from "./loadWebFont.js";

@@ -1,7 +1,5 @@
 import { path2, colorize, colorNameToRgb } from "@jscad/modeling"
 
-const SVGpxPmm = 1 / 0.2822222 // used for scaling SVG coordinates(PX) to JSCAD coordinates(MM)
-
 /**
  * Convert the given text to a set of outline paths.
  *
@@ -11,7 +9,6 @@ const SVGpxPmm = 1 / 0.2822222 // used for scaling SVG coordinates(PX) to JSCAD 
  * @param {Number} [options.xOffset=0] - horizontal position of the beginning of the text
  * @param {Number} [options.xOffset=0] - vertical position of the baseline of the text
  * @param {Boolean} [options.fontKerning=true] - if true takes kerning information into account aa
- * @param {Boolean} [options.fontHinting=true] - if true uses TrueType font hinting if available
  * @param {Number} [options.segments=32] - number of segments to create per full rotation
  * @param {String} text - text of which to convert to outlines
  * @return {Array} list of outline paths, i.e. path2
@@ -27,16 +24,19 @@ export const textToPaths = (options = {}, text) => {
     xOffset = 0,
     yOffset = 0, // position of the baseline
     fontKerning = true,
-    fontHinting = true,
     segments = 32, // for interpretation to JSCAD paths
-    pxPmm = SVGpxPmm, // for interpretation to JSCAD paths
+    pxPmm = 1, // pixels per millimeter, used for interpretation to JSCAD paths
   } = options
 
   if (!font) throw new Error("font is a required option")
 
   let pathoptions = {
     kerning: fontKerning,
-    hinting: fontHinting,
+    // Font hinting is extra information inside a font that tells a renderer 
+    // how to adjust glyph shapes at small sizes so they look sharper 
+    // on a pixel grid. This is not relevant for use in JSCAD, enabling 
+    // hinting can cause unwanted distortions in the shapes of the paths.
+    hinting: false,
     features: { liga: false, rlig: false },
   }
   let fontpath = font.getPath(text, xOffset, yOffset, fontSize, pathoptions)
@@ -156,6 +156,12 @@ const interpretCommands = (options, commands) => {
         console.log(`Warning: unknown command (${j}): ${command}`)
         break
     }
+  }
+  // Some fonts omit the trailing Z on the last subpath
+  if (path) {
+    path = path2.close(path);
+    if (pathcolor) colorize(pathcolor, path);
+    paths.push(path);
   }
   return paths
 }
