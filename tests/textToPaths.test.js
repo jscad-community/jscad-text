@@ -9,7 +9,7 @@ import { loadFont, loadGoogleFont, loadWebFont, textToPaths } from "../src/index
 test("textToPaths (local)", (t) => {
   let font = loadFont("./examples/localfont/fonts/Habana.ttf")
   let paths = textToPaths({ font }, "JSCAD Rocks!")
-  t.is(paths.length, 14)
+  t.is(paths.length, 15)
 
   let path3 = paths[3]
   let pts = path2.toPoints(path3)
@@ -24,7 +24,7 @@ test("textToPaths (google)", async (t) => {
   const font = await loadGoogleFont(family, variant, fetch)
 
   const paths = textToPaths({ font }, "JSCAD Rocks!")
-  t.is(paths.length, 15)
+  t.is(paths.length, 16)
 
   let path3 = paths[3]
   let pts = path2.toPoints(path3)
@@ -38,7 +38,7 @@ test("textToPaths (web)", async (t) => {
   const font = await loadWebFont(fontFileUrl, fetch)
 
   const paths = textToPaths({ font }, "JSCAD Rocks!")
-  t.is(paths.length, 15)
+  t.is(paths.length, 16)
 
   let path3 = paths[3]
   let pts = path2.toPoints(path3)

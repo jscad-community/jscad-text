@@ -1,6 +1,10 @@
 import { geom2 } from "@jscad/modeling"
 /**
- * Convert the given text to a geom2 object
+ * Convert the given text to a geom2 object.
+ *
+ * The paths are created based on the original Font glyphs, and scaled to the fontSize.
+ *
+ * @see Font.getPath() at https://github.com/opentypejs/opentype.js
  *
  * @param {Object} options - options for the conversion
  * @param {Font} options.font] - the font representing a loaded OpenType font file
@@ -8,13 +12,14 @@ import { geom2 } from "@jscad/modeling"
  * @param {Number} [options.xOffset=0] - horizontal position of the beginning of the text
  * @param {Number} [options.xOffset=0] - vertical position of the baseline of the text
  * @param {Boolean} [options.fontKerning=true] - if true takes kerning information into account aa
+ * @param {Boolean} [options.fontHinting=false] - if true uses TrueType font hinting if available
  * @param {Number} [options.segments=32] - number of segments to create per full rotation
  * @param {String} text - text of which to convert to geom2
  * @return {Object} A geom2 object
  *
  * @example
  * const font = await loadWebFont(fontFileUrl, fetchFunc)
- * let paths = textToPaths({font, fontSize: 96, segments: 72}, 'JSCAD is awesome!!!')
+ * let paths = textToGeom2({font, fontSize: 96, segments: 72}, 'JSCAD is awesome!!!')
  */
 export const textToGeom2 = (options = {}, text) => pathsToGeom2(textToPaths(options, text));
 

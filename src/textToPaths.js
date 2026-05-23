@@ -3,13 +3,21 @@ import { path2, colorize, colorNameToRgb } from "@jscad/modeling"
 /**
  * Convert the given text to a set of outline paths.
  *
+ * The paths are created based on the original Font glyphs, and scaled to the fontSize.
+ *
+ * The paths may or may not be closed. See textToGeom2 for additional options.
+ *
+ * @see Font.getPath() at https://github.com/opentypejs/opentype.js
+ *
  * @param {Object} options - options for the conversion
  * @param {Font} options.font] - the font representing a loaded OpenType font file
- * @param {Number} [options.fontSize=14] - size of the text in pixels
+ * @param {Number} [options.fontSize=72] - size of the text in pixels
  * @param {Number} [options.xOffset=0] - horizontal position of the beginning of the text
  * @param {Number} [options.xOffset=0] - vertical position of the baseline of the text
- * @param {Boolean} [options.fontKerning=true] - if true takes kerning information into account aa
+ * @param {Boolean} [options.fontKerning=true] - if true takes kerning information into account
+ * @param {Boolean} [options.fontHinting=false] - if true uses TrueType font hinting if available
  * @param {Number} [options.segments=32] - number of segments to create per full rotation
+ * @param {Boolean} [options.forceClose=false] - force closure of paths, as some fonts do not
  * @param {String} text - text of which to convert to outlines
  * @return {Array} list of outline paths, i.e. path2
  *
@@ -20,11 +28,13 @@ import { path2, colorize, colorNameToRgb } from "@jscad/modeling"
 export const textToPaths = (options = {}, text) => {
   const {
     font,
-    fontSize = 14,
+    fontSize = 72,
     xOffset = 0,
     yOffset = 0, // position of the baseline
     fontKerning = true,
+    fontHinting = false,
     segments = 32, // for interpretation to JSCAD paths
+    forceClosure = false, // for interpretation to JSCAD paths
     pxPmm = 1, // pixels per millimeter, used for interpretation to JSCAD paths
   } = options
 
@@ -32,12 +42,8 @@ export const textToPaths = (options = {}, text) => {
 
   let pathoptions = {
     kerning: fontKerning,
-    // Font hinting is extra information inside a font that tells a renderer 
-    // how to adjust glyph shapes at small sizes so they look sharper 
-    // on a pixel grid. This is not relevant for use in JSCAD, enabling 
-    // hinting can cause unwanted distortions in the shapes of the paths.
-    hinting: false,
-    features: { liga: false, rlig: false },
+    hinting: fontHinting,
+    features: { liga: true, rlig: true },
   }
   let fontpath = font.getPath(text, xOffset, yOffset, fontSize, pathoptions)
 
@@ -50,12 +56,12 @@ export const textToPaths = (options = {}, text) => {
     }
   }
 
-  let paths = interpretCommands({ pathcolor, segments, pxPmm }, fontpath.commands)
+  let paths = interpretCommands({ pathcolor, segments, forceClosure, pxPmm }, fontpath.commands)
   return paths
 }
 
 const interpretCommands = (options, commands) => {
-  const { pathcolor, segments, pxPmm } = options
+  const { pathcolor, segments, forceClosure, pxPmm } = options
   // Note: All values are SVG values
   let sx = 0 // starting position
   let sy = 0
@@ -75,7 +81,7 @@ const interpretCommands = (options, commands) => {
     switch (command.type) {
       case "M": // absolute move to
         if (path) {
-          path = path2.close(path)
+          if (forceClosure) path = path2.close(path)
           if (pathcolor) colorize(pathcolor, path)
           paths.push(path)
         }
@@ -159,7 +165,7 @@ const interpretCommands = (options, commands) => {
   }
   // Some fonts omit the trailing Z on the last subpath
   if (path) {
-    path = path2.close(path);
+    if (forceClosure) path = path2.close(path);
     if (pathcolor) colorize(pathcolor, path);
     paths.push(path);
   }
