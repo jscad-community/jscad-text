@@ -27,8 +27,14 @@ This is required due to the fetching of data across the internet via HTTP protoc
 <p>This function is asycronous, and fetchs the data via the given fetch function.
 This is required due to the fetching of data across the internet via HTTP protocols.</p>
 </dd>
+<dt><a href="#textToGeom2">textToGeom2</a> ⇒ <code>Object</code></dt>
+<dd><p>Convert the given text to a geom2 object.</p>
+<p>The paths are created based on the original Font glyphs, and scaled to the fontSize.</p>
+</dd>
 <dt><a href="#textToPaths">textToPaths</a> ⇒ <code>Array</code></dt>
 <dd><p>Convert the given text to a set of outline paths.</p>
+<p>The paths are created based on the original Font glyphs, and scaled to the fontSize.</p>
+<p>The paths may or may not be closed. See textToGeom2 for additional options.</p>
 </dd>
 </dl>
 
@@ -54,6 +60,11 @@ Load the font description from the given file path.
 | --- | --- | --- |
 | path | <code>String</code> | path to local file, i.e. font |
 
+**Example**  
+```js
+const filePath = "./fonts/Habana.ttf"
+const font = loadFont(filePath)
+```
 <a name="loadFontFromData"></a>
 
 ## loadFontFromData ⇒ <code>Font</code>
@@ -66,6 +77,11 @@ Load the font description from the given data.
 | --- | --- | --- |
 | data | <code>ArrayBuffer</code> | raw data from font file |
 
+**Example**  
+```js
+const fontData = await response.arrayBuffer()
+const font = loadFontFromData(fontData)
+```
 <a name="loadGoogleFont"></a>
 
 ## loadGoogleFont ⇒ <code>Font</code>
@@ -78,7 +94,7 @@ This is required due to the fetching of data across the internet via HTTP protoc
 **Returns**: <code>Font</code> - new font object which contains the contents of the font  
 **See**: https://developers.google.com/fonts/
 
-NOTE: Uncomment the console statements to see available families and variants.  
+NOTE: See the console output for hints about available variants.  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -86,6 +102,11 @@ NOTE: Uncomment the console statements to see available families and variants.
 | variant | <code>String</code> | variant name of font to load |
 | fetch | <code>function</code> | function to use for fetching the font from Google |
 
+**Example**  
+```js
+// see the examples for additional information
+const font = await loadGoogleFont(family, variant, fetchFunc)
+```
 <a name="loadWebFont"></a>
 
 ## loadWebFont ⇒ <code>Font</code>
@@ -102,13 +123,22 @@ This is required due to the fetching of data across the internet via HTTP protoc
 | fontUrl | <code>String</code> | URL of font file to load |
 | fetch | <code>function</code> | function to use for fetching the font from Google |
 
-<a name="textToPaths"></a>
+**Example**  
+```js
+// see the examples for additional information
+const fontUrl = "http://72.62.112.88/v3/docs/fonts/Montserrat/Montserrat-Regular.ttf"
+const font = await loadWebFont(fontUrl, fetchFunc)
+```
+<a name="textToGeom2"></a>
 
-## textToPaths ⇒ <code>Array</code>
-Convert the given text to a set of outline paths.
+## textToGeom2 ⇒ <code>Object</code>
+Convert the given text to a geom2 object.
+
+The paths are created based on the original Font glyphs, and scaled to the fontSize.
 
 **Kind**: global constant  
-**Returns**: <code>Array</code> - list of outline paths, i.e. path2  
+**Returns**: <code>Object</code> - A geom2 object  
+**See**: Font.getPath() at https://github.com/opentypejs/opentype.js  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -118,7 +148,43 @@ Convert the given text to a set of outline paths.
 | [options.xOffset] | <code>Number</code> | <code>0</code> | horizontal position of the beginning of the text |
 | [options.xOffset] | <code>Number</code> | <code>0</code> | vertical position of the baseline of the text |
 | [options.fontKerning] | <code>Boolean</code> | <code>true</code> | if true takes kerning information into account aa |
-| [options.fontHinting] | <code>Boolean</code> | <code>true</code> | if true uses TrueType font hinting if available |
+| [options.fontHinting] | <code>Boolean</code> | <code>false</code> | if true uses TrueType font hinting if available |
 | [options.segments] | <code>Number</code> | <code>32</code> | number of segments to create per full rotation |
+| text | <code>String</code> |  | text of which to convert to geom2 |
+
+**Example**  
+```js
+const font = await loadWebFont(fontFileUrl, fetchFunc)
+let paths = textToGeom2({font, fontSize: 96, segments: 72}, 'JSCAD is awesome!!!')
+```
+<a name="textToPaths"></a>
+
+## textToPaths ⇒ <code>Array</code>
+Convert the given text to a set of outline paths.
+
+The paths are created based on the original Font glyphs, and scaled to the fontSize.
+
+The paths may or may not be closed. See textToGeom2 for additional options.
+
+**Kind**: global constant  
+**Returns**: <code>Array</code> - list of outline paths, i.e. path2  
+**See**: Font.getPath() at https://github.com/opentypejs/opentype.js  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| options | <code>Object</code> |  | options for the conversion |
+| options.font | <code>Font</code> |  | the font representing a loaded OpenType font file |
+| [options.fontSize] | <code>Number</code> | <code>72</code> | size of the text in pixels |
+| [options.xOffset] | <code>Number</code> | <code>0</code> | horizontal position of the beginning of the text |
+| [options.xOffset] | <code>Number</code> | <code>0</code> | vertical position of the baseline of the text |
+| [options.fontKerning] | <code>Boolean</code> | <code>true</code> | if true takes kerning information into account |
+| [options.fontHinting] | <code>Boolean</code> | <code>false</code> | if true uses TrueType font hinting if available |
+| [options.segments] | <code>Number</code> | <code>32</code> | number of segments to create per full rotation |
+| [options.forceClose] | <code>Boolean</code> | <code>false</code> | force closure of paths, as some fonts do not |
 | text | <code>String</code> |  | text of which to convert to outlines |
 
+**Example**  
+```js
+const font = await loadWebFont(fontFileUrl, fetchFunc)
+let paths = textToPaths({font, fontSize: 96, segments: 72}, 'JSCAD is awesome!!!')
+```
