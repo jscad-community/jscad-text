@@ -10,13 +10,6 @@ export default {
   external: ["@jscad/modeling", "fs"],
   output: [
     {
-      file: './dist/jscad-text.umd.js',
-      format: 'umd',
-      name: 'jscad-text',
-      banner: `/*! ${name} V${version} (${license}) */`,
-      globals: { '@jscad/modeling': 'jscadModeling', "fs": "fs" }
-    },
-    {
       file: './dist/jscad-text.js',
       format: 'es',
       banner: `/*! ${name} V${version} (${license}) */`
