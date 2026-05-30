@@ -1,4 +1,5 @@
-import { geom2 } from "@jscad/modeling"
+import { geom2, path2 } from "@jscad/modeling"
+import { textToPaths } from "./textToPaths.js"
 /**
  * Convert the given text to a geom2 object.
  *
@@ -21,7 +22,8 @@ import { geom2 } from "@jscad/modeling"
  * const font = await loadWebFont(fontFileUrl, fetchFunc)
  * let paths = textToGeom2({font, fontSize: 96, segments: 72}, 'JSCAD is awesome!!!')
  */
-export const textToGeom2 = (options = {}, text) => pathsToGeom2(textToPaths(options, text));
+export const textToGeom2 = (options = {}, text) =>
+  pathsToGeom2(textToPaths({ ...options, forceClose: true }, text));
 
 // Shoelace formula: positive = CCW, negative = CW (in Y-up space)
 const signedArea = (points) => {
