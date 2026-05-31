@@ -34,7 +34,7 @@ export const textToPaths = (options = {}, text) => {
     fontKerning = true,
     fontHinting = false,
     segments = 32, // for interpretation to JSCAD paths
-    forceClosure = false, // for interpretation to JSCAD paths
+    forceClose = false, // for interpretation to JSCAD paths
     pxPmm = 1, // pixels per millimeter, used for interpretation to JSCAD paths
   } = options
 
@@ -56,12 +56,12 @@ export const textToPaths = (options = {}, text) => {
     }
   }
 
-  let paths = interpretCommands({ pathcolor, segments, forceClosure, pxPmm }, fontpath.commands)
+  let paths = interpretCommands({ pathcolor, segments, forceClose, pxPmm }, fontpath.commands)
   return paths
 }
 
 const interpretCommands = (options, commands) => {
-  const { pathcolor, segments, forceClosure, pxPmm } = options
+  const { pathcolor, segments, forceClose, pxPmm } = options
   // Note: All values are SVG values
   let sx = 0 // starting position
   let sy = 0
@@ -81,7 +81,7 @@ const interpretCommands = (options, commands) => {
     switch (command.type) {
       case "M": // absolute move to
         if (path) {
-          if (forceClosure) path = path2.close(path)
+          if (forceClose) path = path2.close(path)
           if (pathcolor) colorize(pathcolor, path)
           paths.push(path)
         }
@@ -165,7 +165,7 @@ const interpretCommands = (options, commands) => {
   }
   // Some fonts omit the trailing Z on the last subpath
   if (path) {
-    if (forceClosure) path = path2.close(path);
+    if (forceClose) path = path2.close(path);
     if (pathcolor) colorize(pathcolor, path);
     paths.push(path);
   }
