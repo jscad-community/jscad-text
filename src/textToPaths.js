@@ -31,6 +31,7 @@ export const textToPaths = (options = {}, text) => {
     xOffset = 0,
     yOffset = 0, // position of the baseline
     fontKerning = true,
+    fontHinting = false, // note: hinting is only needed for rasterization from vector data; it should not be needed for vector output such as JSCAD paths
     segments = 32, // for interpretation to JSCAD paths
     forceClose = false,
     pxPmm = 1, // pixels per millimeter, used for interpretation to JSCAD paths
@@ -40,7 +41,7 @@ export const textToPaths = (options = {}, text) => {
 
   let pathoptions = {
     kerning: fontKerning,
-    hinting: false,
+    hinting: fontHinting,
     features: { liga: true, rlig: true },
   }
   // svg coordinates and JSCAD coordinates are flipped on the Y axis
