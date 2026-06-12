@@ -12,7 +12,7 @@ import { textToPaths } from "./textToPaths.js"
  * @param {Number} [options.fontSize=14] - size of the text in pixels
  * @param {Boolean} [options.fontKerning=true] - if true takes kerning information into account aa
  * @param {Number} [options.segments=32] - number of segments to create per full rotation
- * @param {Array} [options.center=[false, false]] - Centering options for X and Y axes (true, false, or number of center coordinates in mm)
+ * @param {Array} [options.center=[true, true]] - Centering options for X and Y axes (true, false, or number of center coordinates in mm)
  * @param {String} text - text of which to convert to geom2
  * @return {Object} A geom2 object
  *
