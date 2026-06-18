@@ -7,6 +7,7 @@ import { path2 } from "@jscad/modeling"
 import { loadFont, loadGoogleFont, loadWebFont, textToPaths } from "../src/index.js"
 
 test("textToPaths (local)", (t) => {
+  // closed glyphs
   let font = loadFont("./examples/localfont/fonts/Habana.ttf")
   let paths = textToPaths({ font }, "JSCAD Rocks!")
   t.is(paths.length, 15)
@@ -15,6 +16,17 @@ test("textToPaths (local)", (t) => {
   let pts = path2.toPoints(path3)
 
   t.is(pts.length, 39)
+
+  // single outline glyphs
+  font = loadFont("./examples/localfont/fonts/QuicklyReplacedSingleLine-rgZXL.ttf")
+  paths = textToPaths({ font, forceClose: false }, "J")
+  t.is(paths.length, 1)
+
+  let path0 = paths[0]
+  t.true(path0.isClosed)
+
+  pts = path2.toPoints(path0)
+  t.is(pts.length, 133)
 })
 
 test("textToPaths: yOffset shifts Y up in JSCAD space (SVG Y-axis flip)", (t) => {

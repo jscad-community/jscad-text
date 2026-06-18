@@ -16,4 +16,4 @@ export const main = async () => {
   return paths
 }
 
-main()
+console.log(main())
