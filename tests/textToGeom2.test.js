@@ -9,6 +9,9 @@ const createMockFont = (commands) => ({
     commands,
     fill: "black",
   }),
+  charToGlyph: () => ({
+    getPath: () => ({ commands: [] }),
+  }),
 })
 
 test("textToGeom2 builds a geom2 from an unclosed contour", (t) => {

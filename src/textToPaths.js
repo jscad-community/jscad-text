@@ -13,9 +13,8 @@ import { path2, colorize, colorNameToRgb } from "@jscad/modeling"
  * @param {Font} options.font] - the font representing a loaded OpenType font file
  * @param {Number} [options.fontSize=72] - size of the text in pixels
  * @param {Number} [options.xOffset=0] - horizontal position of the beginning of the text
- * @param {Number} [options.xOffset=0] - vertical position of the baseline of the text
+ * @param {Number} [options.yOffset=0] - vertical position of the baseline of the text
  * @param {Boolean} [options.fontKerning=true] - if true takes kerning information into account
- * @param {Boolean} [options.fontHinting=false] - if true uses TrueType font hinting if available
  * @param {Number} [options.segments=32] - number of segments to create per full rotation
  * @param {Boolean} [options.forceClose=false] - force closure of paths, as some fonts do not
  * @param {String} text - text of which to convert to outlines
@@ -32,7 +31,7 @@ export const textToPaths = (options = {}, text) => {
     xOffset = 0,
     yOffset = 0, // position of the baseline
     fontKerning = true,
-    fontHinting = false,
+    fontHinting = false, // note: hinting is only needed for rasterization from vector data; it should not be needed for vector output such as JSCAD paths
     segments = 32, // for interpretation to JSCAD paths
     forceClose = false,
     pxPmm = 1, // pixels per millimeter, used for interpretation to JSCAD paths
@@ -45,7 +44,8 @@ export const textToPaths = (options = {}, text) => {
     hinting: fontHinting,
     features: { liga: true, rlig: true },
   }
-  let fontpath = font.getPath(text, xOffset, yOffset, fontSize, pathoptions)
+  // svg coordinates and JSCAD coordinates are flipped on the Y axis
+  let fontpath = font.getPath(text, xOffset, -yOffset, fontSize, pathoptions)
 
   let pathcolor = [0, 0, 0, 1] // black
   if (fontpath.stroke) {
