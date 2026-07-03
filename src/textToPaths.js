@@ -15,6 +15,9 @@ import { path2, colorize, colorNameToRgb } from "@jscad/modeling"
  * @param {Number} [options.xOffset=0] - horizontal position of the beginning of the text
  * @param {Number} [options.yOffset=0] - vertical position of the baseline of the text
  * @param {Boolean} [options.fontKerning=true] - if true takes kerning information into account
+ * @param {Boolean} [options.fontHinting=false] - if true takes hinting information into account.
+ *   Note: hinting is only needed for rasterization from vector data; it should not be
+ *   needed for vector output such as JSCAD paths.
  * @param {Number} [options.segments=32] - number of segments to create per full rotation
  * @param {Boolean} [options.forceClose=false] - force closure of paths, as some fonts do not
  * @param {String} text - text of which to convert to outlines
@@ -31,7 +34,7 @@ export const textToPaths = (options = {}, text) => {
     xOffset = 0,
     yOffset = 0, // position of the baseline
     fontKerning = true,
-    fontHinting = false, // note: hinting is only needed for rasterization from vector data; it should not be needed for vector output such as JSCAD paths
+    fontHinting = false,
     segments = 32, // for interpretation to JSCAD paths
     forceClose = false, // for interpretation to JSCAD paths
     pxPmm = 1, // pixels per millimeter, used for interpretation to JSCAD paths
