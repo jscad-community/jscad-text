@@ -33,7 +33,7 @@ export const textToPaths = (options = {}, text) => {
     fontKerning = true,
     fontHinting = false, // note: hinting is only needed for rasterization from vector data; it should not be needed for vector output such as JSCAD paths
     segments = 32, // for interpretation to JSCAD paths
-    forceClose = false,
+    forceClose = false, // for interpretation to JSCAD paths
     pxPmm = 1, // pixels per millimeter, used for interpretation to JSCAD paths
   } = options
 
