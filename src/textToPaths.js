@@ -18,8 +18,6 @@ import {
  * @param {Object} options - options for the conversion
  * @param {Font} options.font] - the font representing a loaded OpenType font file
  * @param {Number} [options.fontSize=72] - size of the text in pixels
- * @param {Number} [options.xOffset=0] - horizontal position of the beginning of the text or offset when centered
- * @param {Number} [options.yOffset=0] - vertical position of the baseline of the text or offset when centered
  * @param {Object} [options.fontOptions={}] - options passed through to Font.getPath(),
  *   e.g. kerning, features (liga, rlig, etc.), hinting. The opentype.js defaults apply.
  *   See https://github.com/opentypejs/opentype.js#fontgetpathtext-x-y-fontsize-options
@@ -40,8 +38,6 @@ export const textToPaths = (options = {}, text) => {
   const {
     font,
     fontSize = 72,
-    xOffset = 0,
-    yOffset = 0, // position of the baseline
     fontOptions = {}, // passed through to Font.getPath()
     center: centerOption = [false, false],
     segments = 32, // for interpretation to JSCAD paths
@@ -51,7 +47,7 @@ export const textToPaths = (options = {}, text) => {
 
   if (!font) throw new Error("font is a required option")
 
-  let baseline = yOffset;
+  let baseline = 0;
   if (centerOption[1] !== false) {
     // Center based on font cap height
     const capHeight = (getCapHeight(font) * fontSize) / font.unitsPerEm
@@ -59,7 +55,7 @@ export const textToPaths = (options = {}, text) => {
   }
 
   // svg coordinates and JSCAD coordinates are flipped on the Y axis
-  let fontpath = font.getPath(text, xOffset, -baseline, fontSize, fontOptions)
+  let fontpath = font.getPath(text, 0, -baseline, fontSize, fontOptions)
 
   let pathcolor = [0, 0, 0, 1] // black
   if (fontpath.stroke) {

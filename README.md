@@ -173,8 +173,6 @@ The paths may or may not be closed. See textToGeom2 for additional options.
 | options | <code>Object</code> |  | options for the conversion |
 | options.font | <code>Font</code> |  | the font representing a loaded OpenType font file |
 | [options.fontSize] | <code>Number</code> | <code>72</code> | size of the text in pixels |
-| [options.xOffset] | <code>Number</code> | <code>0</code> | horizontal position of the beginning of the text |
-| [options.yOffset] | <code>Number</code> | <code>0</code> | vertical position of the baseline of the text |
 | [options.fontOptions] | <code>Object</code> | <code>{}</code> | options passed through to Font.getPath(),   e.g. kerning, features (liga, rlig, etc.), hinting. The opentype.js defaults apply.   See https://github.com/opentypejs/opentype.js#fontgetpathtext-x-y-fontsize-options   Note: hinting is only needed for rasterization from vector data; it should not be   needed for vector output such as JSCAD paths. |
 | [options.center] | <code>Array</code> | <code>[false, false]</code> | centering options for the X and Y axes;   true, false, or the center coordinate in mm. Y centering is based on the font cap height. |
 | [options.segments] | <code>Number</code> | <code>32</code> | number of segments to create per full rotation |
