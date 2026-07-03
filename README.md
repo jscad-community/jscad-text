@@ -138,18 +138,16 @@ The paths are created based on the original Font glyphs, and scaled to the fontS
 
 **Kind**: global constant  
 **Returns**: <code>Object</code> - A geom2 object  
-**See**: Font.getPath() at https://github.com/opentypejs/opentype.js  
+**See**: Font.getPath() at https://github.com/opentypejs/opentype.js#fontgetpathtext-x-y-fontsize-options  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | options | <code>Object</code> |  | options for the conversion |
 | options.font | <code>Font</code> |  | the font representing a loaded OpenType font file |
-| [options.fontSize] | <code>Number</code> | <code>14</code> | size of the text in pixels |
-| [options.xOffset] | <code>Number</code> | <code>0</code> | horizontal position of the beginning of the text |
-| [options.xOffset] | <code>Number</code> | <code>0</code> | vertical position of the baseline of the text |
-| [options.fontKerning] | <code>Boolean</code> | <code>true</code> | if true takes kerning information into account aa |
-| [options.fontHinting] | <code>Boolean</code> | <code>false</code> | if true uses TrueType font hinting if available |
+| [options.fontSize] | <code>Number</code> | <code>72</code> | size of the text in pixels |
+| [options.fontOptions] | <code>Object</code> | <code>{}</code> | options passed through to Font.getPath(),   e.g. kerning, features (liga, rlig, etc.), hinting. The opentype.js defaults apply.   See https://github.com/opentypejs/opentype.js#fontgetpathtext-x-y-fontsize-options |
 | [options.segments] | <code>Number</code> | <code>32</code> | number of segments to create per full rotation |
+| [options.center] | <code>Array</code> | <code>[true, true]</code> | centering options for the X and Y axes;   true, false, or the center coordinate in mm. Y centering is based on the font cap height. |
 | text | <code>String</code> |  | text of which to convert to geom2 |
 
 **Example**  
@@ -168,7 +166,7 @@ The paths may or may not be closed. See textToGeom2 for additional options.
 
 **Kind**: global constant  
 **Returns**: <code>Array</code> - list of outline paths, i.e. path2  
-**See**: Font.getPath() at https://github.com/opentypejs/opentype.js  
+**See**: Font.getPath() at https://github.com/opentypejs/opentype.js#fontgetpathtext-x-y-fontsize-options  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
@@ -176,9 +174,9 @@ The paths may or may not be closed. See textToGeom2 for additional options.
 | options.font | <code>Font</code> |  | the font representing a loaded OpenType font file |
 | [options.fontSize] | <code>Number</code> | <code>72</code> | size of the text in pixels |
 | [options.xOffset] | <code>Number</code> | <code>0</code> | horizontal position of the beginning of the text |
-| [options.xOffset] | <code>Number</code> | <code>0</code> | vertical position of the baseline of the text |
-| [options.fontKerning] | <code>Boolean</code> | <code>true</code> | if true takes kerning information into account |
-| [options.fontHinting] | <code>Boolean</code> | <code>false</code> | if true uses TrueType font hinting if available |
+| [options.yOffset] | <code>Number</code> | <code>0</code> | vertical position of the baseline of the text |
+| [options.fontOptions] | <code>Object</code> | <code>{}</code> | options passed through to Font.getPath(),   e.g. kerning, features (liga, rlig, etc.), hinting. The opentype.js defaults apply.   See https://github.com/opentypejs/opentype.js#fontgetpathtext-x-y-fontsize-options   Note: hinting is only needed for rasterization from vector data; it should not be   needed for vector output such as JSCAD paths. |
+| [options.center] | <code>Array</code> | <code>[false, false]</code> | centering options for the X and Y axes;   true, false, or the center coordinate in mm. Y centering is based on the font cap height. |
 | [options.segments] | <code>Number</code> | <code>32</code> | number of segments to create per full rotation |
 | [options.forceClose] | <code>Boolean</code> | <code>false</code> | force closure of paths, as some fonts do not |
 | text | <code>String</code> |  | text of which to convert to outlines |
