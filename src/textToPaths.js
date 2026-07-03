@@ -73,7 +73,7 @@ export const textToPaths = (options = {}, text) => {
     // center() centers each geometry individually, so translate all paths as a group
     const bounds = measureAggregateBoundingBox(paths)
     const offset = relativeTo - (bounds[0][0] + bounds[1][0]) / 2
-    paths = paths.map((path) => translate([offset, 0, 0], path))
+    translate([offset, 0, 0], paths)
   }
   return paths
 }
