@@ -1,7 +1,8 @@
 import fs from 'fs'
 
-// FOR ROLLUP import * as opentype from "opentype.js"
-import opentype from "opentype.js"
+// import the ESM build directly: the bare "opentype.js" specifier resolves to
+// the CJS build in Node but the ESM build in Rollup, with incompatible exports
+import { parse } from 'opentype.js/dist/opentype.mjs'
 
 /**
  * Load the font description from the given file path.
@@ -14,7 +15,7 @@ import opentype from "opentype.js"
  * const font = loadFont(filePath)
  */
 export const loadFont = (path) => {
-  return opentype.parse(fs.readFileSync(path))
+  return parse(fs.readFileSync(path))
 }
 
 /**
@@ -28,5 +29,5 @@ export const loadFont = (path) => {
  * const font = loadFontFromData(fontData)
  */
 export const loadFontFromData = (data) => {
-  return opentype.parse(data)
+  return parse(data)
 }

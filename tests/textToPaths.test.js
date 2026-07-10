@@ -29,15 +29,15 @@ test("textToPaths (local)", (t) => {
   t.is(pts.length, 133)
 })
 
-test("textToPaths: yOffset shifts Y up in JSCAD space (SVG Y-axis flip)", (t) => {
+test("textToPaths: delta on center Y shifts Y up in JSCAD space (SVG Y-axis flip)", (t) => {
   // SVG Y increases downward, JSCAD Y increases upward.
   // textToPaths passes -yOffset to font.getPath and negates Y in convY,
   // so a positive yOffset must move all path points up (higher Y in JSCAD).
   let font = loadFont("./examples/localfont/fonts/Habana.ttf")
   const delta = 50
 
-  let paths0 = textToPaths({ font, yOffset: 0 }, "I")
-  let pathsD = textToPaths({ font, yOffset: delta }, "I")
+  let paths0 = textToPaths({ font, center: [true, true] }, "I")
+  let pathsD = textToPaths({ font, center: [true, delta] }, "I")
 
   t.is(paths0.length, pathsD.length, "same number of paths")
 

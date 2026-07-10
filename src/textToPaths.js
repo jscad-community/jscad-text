@@ -1,4 +1,10 @@
-import { path2, colorize, colorNameToRgb } from "@jscad/modeling"
+import {
+  path2,
+  colorize,
+  colorNameToRgb,
+  measureAggregateBoundingBox,
+  translate,
+} from "@jscad/modeling"
 
 /**
  * Convert the given text to a set of outline paths.
@@ -7,14 +13,18 @@ import { path2, colorize, colorNameToRgb } from "@jscad/modeling"
  *
  * The paths may or may not be closed. See textToGeom2 for additional options.
  *
- * @see Font.getPath() at https://github.com/opentypejs/opentype.js
+ * @see Font.getPath() at https://github.com/opentypejs/opentype.js#fontgetpathtext-x-y-fontsize-options
  *
  * @param {Object} options - options for the conversion
  * @param {Font} options.font] - the font representing a loaded OpenType font file
  * @param {Number} [options.fontSize=72] - size of the text in pixels
- * @param {Number} [options.xOffset=0] - horizontal position of the beginning of the text
- * @param {Number} [options.yOffset=0] - vertical position of the baseline of the text
- * @param {Boolean} [options.fontKerning=true] - if true takes kerning information into account
+ * @param {Object} [options.fontOptions={}] - options passed through to Font.getPath(),
+ *   e.g. kerning, features (liga, rlig, etc.), hinting. The opentype.js defaults apply.
+ *   See https://github.com/opentypejs/opentype.js#fontgetpathtext-x-y-fontsize-options
+ *   Note: hinting is only needed for rasterization from vector data; it should not be
+ *   needed for vector output such as JSCAD paths.
+ * @param {Array} [options.center=[false, false]] - centering options for the X and Y axes;
+ *   true, false, or the center coordinate in mm. Y centering is based on the font cap height.
  * @param {Number} [options.segments=32] - number of segments to create per full rotation
  * @param {Boolean} [options.forceClose=false] - force closure of paths, as some fonts do not
  * @param {String} text - text of which to convert to outlines
@@ -28,10 +38,8 @@ export const textToPaths = (options = {}, text) => {
   const {
     font,
     fontSize = 72,
-    xOffset = 0,
-    yOffset = 0, // position of the baseline
-    fontKerning = true,
-    fontHinting = false, // note: hinting is only needed for rasterization from vector data; it should not be needed for vector output such as JSCAD paths
+    fontOptions = {}, // passed through to Font.getPath()
+    center: centerOption = [false, false],
     segments = 32, // for interpretation to JSCAD paths
     forceClose = false, // for interpretation to JSCAD paths
     pxPmm = 1, // pixels per millimeter, used for interpretation to JSCAD paths
@@ -39,13 +47,15 @@ export const textToPaths = (options = {}, text) => {
 
   if (!font) throw new Error("font is a required option")
 
-  let pathoptions = {
-    kerning: fontKerning,
-    hinting: fontHinting,
-    features: { liga: true, rlig: true },
+  let baseline = 0;
+  if (centerOption[1] !== false) {
+    // Center based on font cap height
+    const capHeight = (getCapHeight(font) * fontSize) / font.unitsPerEm
+    baseline += capHeight / -2 + (centerOption[1] === true ? 0 : Number(centerOption[1]))
   }
+
   // svg coordinates and JSCAD coordinates are flipped on the Y axis
-  let fontpath = font.getPath(text, xOffset, -yOffset, fontSize, pathoptions)
+  let fontpath = font.getPath(text, 0, -baseline, fontSize, fontOptions)
 
   let pathcolor = [0, 0, 0, 1] // black
   if (fontpath.stroke) {
@@ -57,7 +67,27 @@ export const textToPaths = (options = {}, text) => {
   }
 
   let paths = interpretCommands({ pathcolor, segments, forceClose, pxPmm }, fontpath.commands)
+
+  if (centerOption[0] !== false && paths.length > 0) {
+    const relativeTo = centerOption[0] === true ? 0 : Number(centerOption[0])
+    // center() centers each geometry individually, so translate all paths as a group
+    const bounds = measureAggregateBoundingBox(paths)
+    const offset = relativeTo - (bounds[0][0] + bounds[1][0]) / 2
+    paths = paths.map((path) => translate([offset, 0, 0], path))
+  }
   return paths
+}
+
+const getCapHeight = (font) => {
+  const os2CapHeight = font.tables?.os2?.sCapHeight;
+  if (Number.isFinite(os2CapHeight)) return os2CapHeight;
+
+  // fallback: measure uppercase H
+  const glyph = font.charToGlyph("H");
+  if (glyph && Number.isFinite(glyph.yMax)) return glyph.yMax;
+
+  // last fallback
+  return font.ascender;
 }
 
 const interpretCommands = (options, commands) => {
