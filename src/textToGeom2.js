@@ -1,7 +1,7 @@
 import { geom2, path2 } from "@jscad/modeling"
 import { textToPaths } from "./textToPaths.js"
 /**
- * Convert the given text to a geom2 object.
+ * Convert the given text to a geom2 object using the given options.
  *
  * The paths are created based on the original Font glyphs, and scaled to the fontSize.
  *
@@ -16,8 +16,8 @@ import { textToPaths } from "./textToPaths.js"
  * @param {Number} [options.segments=32] - number of segments to create per full rotation
  * @param {Array} [options.center=[true, true]] - centering options for the X and Y axes;
  *   true, false, or the center coordinate in mm. Y centering is based on the font cap height.
- * @param {String} text - text of which to convert to geom2
- * @return {Object} A geom2 object
+ * @param {String} text - text of which to convert to Geom2
+ * @return {Geom2} A geom2 object
  *
  * @example
  * const font = await loadWebFont(fontFileUrl, fetchFunc)
@@ -42,7 +42,7 @@ const signedArea = (points) => {
 
 // Convert path2 array to a single geom2 that correctly models holes.
 // TrueType fonts after the Y-flip produce CW outer contours (negative area);
-// JSCAD geom2 expects CCW outers and CW holes, so we detect the convention
+// JSCAD Geom2 expects CCW outers and CW holes, so we detect the convention
 // from the largest path and reverse all paths if needed.
 const pathsToGeom2 = (paths) => {
   const outlines = paths.map((p) => path2.toPoints(p));
