@@ -7,7 +7,7 @@ import {
 } from "@jscad/modeling"
 
 /**
- * Convert the given text to a set of outline paths.
+ * Convert the given text to a set of outline paths using the given options.
  *
  * The paths are created based on the original Font glyphs, and scaled to the fontSize.
  *
@@ -28,7 +28,7 @@ import {
  * @param {Number} [options.segments=32] - number of segments to create per full rotation
  * @param {Boolean} [options.forceClose=false] - force closure of paths, as some fonts do not
  * @param {String} text - text of which to convert to outlines
- * @return {Array} list of outline paths, i.e. path2
+ * @return {Array} list of outline paths, i.e. Path2
  *
  * @example
  * const font = await loadWebFont(fontFileUrl, fetchFunc)

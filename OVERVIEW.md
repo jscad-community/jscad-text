@@ -38,7 +38,7 @@ npm install jscad-text
 
 ## Examples
 
-Each of the eamples is a small stand-alone NPM project; localfont and googlefont.
+Each of the examples is a small stand-alone NPM project; localfont and googlefont.
 
 ### Local Font Project
 
@@ -55,7 +55,7 @@ This is also a typical JSCAD design, and can be nodified to do whatever you want
 
 ### Google Font Example
 
-This example (aa) fetches a font from the [Google Fonts website](https://fonts.google.com/).
+This example fetches a font from the [Google Fonts website](https://fonts.google.com/).
 Just go there, find a nice font 'family', and write down the name.
 
 Another cool library called 'node-fetch' is being used to download the font from the internet.
@@ -82,13 +82,13 @@ This project builds packages for use in websites.
 
 If using the JSCAD V3 Design UI, just drop and drop the example to the page.
 
-If including the library as part of a web application then include the package form any DSN.
+If including the library as part of a web application then include the package from any DSN.
 
 ## Special Note
 
 **THIS VERSION ONLY WORKS WITH JSCAD V3.**
 
-See the [User Guide](https://openjscad.xyz/guide.html) for some tips.
+See the [User Guide](https://openjscad.xyz/v3/guide.html) for some tips.
 
 ## License
 

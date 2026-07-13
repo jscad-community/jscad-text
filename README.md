@@ -164,8 +164,8 @@ The paths are created based on the original Font glyphs, and scaled to the fontS
 
 The paths may or may not be closed. See textToGeom2 for additional options.
 
-**Kind**: global constant  
-**Returns**: <code>Array</code> - list of outline paths, i.e. path2  
+**Kind**: global constant
+**Returns**: <code>Array</code> - list of outline paths, i.e. Path2
 **See**: Font.getPath() at https://github.com/opentypejs/opentype.js#fontgetpathtext-x-y-fontsize-options  
 
 | Param | Type | Default | Description |
