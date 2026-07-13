@@ -27,12 +27,12 @@ This is required due to the fetching of data across the internet via HTTP protoc
 <p>This function is asycronous, and fetchs the data via the given fetch function.
 This is required due to the fetching of data across the internet via HTTP protocols.</p>
 </dd>
-<dt><a href="#textToGeom2">textToGeom2</a> ⇒ <code>Object</code></dt>
-<dd><p>Convert the given text to a geom2 object.</p>
+<dt><a href="#textToGeom2">textToGeom2</a> ⇒ <code>Geom2</code></dt>
+<dd><p>Convert the given text to a geom2 object using the given options.</p>
 <p>The paths are created based on the original Font glyphs, and scaled to the fontSize.</p>
 </dd>
 <dt><a href="#textToPaths">textToPaths</a> ⇒ <code>Array</code></dt>
-<dd><p>Convert the given text to a set of outline paths.</p>
+<dd><p>Convert the given text to a set of outline paths using the given options.</p>
 <p>The paths are created based on the original Font glyphs, and scaled to the fontSize.</p>
 <p>The paths may or may not be closed. See textToGeom2 for additional options.</p>
 </dd>
@@ -131,13 +131,13 @@ const font = await loadWebFont(fontUrl, fetchFunc)
 ```
 <a name="textToGeom2"></a>
 
-## textToGeom2 ⇒ <code>Object</code>
-Convert the given text to a geom2 object.
+## textToGeom2 ⇒ <code>Geom2</code>
+Convert the given text to a geom2 object using the given options.
 
 The paths are created based on the original Font glyphs, and scaled to the fontSize.
 
 **Kind**: global constant  
-**Returns**: <code>Object</code> - A geom2 object  
+**Returns**: <code>Geom2</code> - A geom2 object  
 **See**: Font.getPath() at https://github.com/opentypejs/opentype.js#fontgetpathtext-x-y-fontsize-options  
 
 | Param | Type | Default | Description |
@@ -148,7 +148,7 @@ The paths are created based on the original Font glyphs, and scaled to the fontS
 | [options.fontOptions] | <code>Object</code> | <code>{}</code> | options passed through to Font.getPath(),   e.g. kerning, features (liga, rlig, etc.), hinting. The opentype.js defaults apply.   See https://github.com/opentypejs/opentype.js#fontgetpathtext-x-y-fontsize-options |
 | [options.segments] | <code>Number</code> | <code>32</code> | number of segments to create per full rotation |
 | [options.center] | <code>Array</code> | <code>[true, true]</code> | centering options for the X and Y axes;   true, false, or the center coordinate in mm. Y centering is based on the font cap height. |
-| text | <code>String</code> |  | text of which to convert to geom2 |
+| text | <code>String</code> |  | text of which to convert to Geom2 |
 
 **Example**  
 ```js
@@ -158,14 +158,14 @@ let paths = textToGeom2({font, fontSize: 96, segments: 72}, 'JSCAD is awesome!!!
 <a name="textToPaths"></a>
 
 ## textToPaths ⇒ <code>Array</code>
-Convert the given text to a set of outline paths.
+Convert the given text to a set of outline paths using the given options.
 
 The paths are created based on the original Font glyphs, and scaled to the fontSize.
 
 The paths may or may not be closed. See textToGeom2 for additional options.
 
-**Kind**: global constant
-**Returns**: <code>Array</code> - list of outline paths, i.e. Path2
+**Kind**: global constant  
+**Returns**: <code>Array</code> - list of outline paths, i.e. Path2  
 **See**: Font.getPath() at https://github.com/opentypejs/opentype.js#fontgetpathtext-x-y-fontsize-options  
 
 | Param | Type | Default | Description |
