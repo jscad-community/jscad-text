@@ -1,179 +1,186 @@
-## jscad-text
+## Objects
 
-## Create Outlines of Text using TTF fonts
+<dl>
+<dt><a href="#jscad-text">jscad-text</a> : <code>object</code></dt>
+<dd><p>Create Outlines of Text using TTF fonts</p>
+<p>The JSCAD project does not provide the ability to use TTF fonts when creating outlines of text (It only supports SIMPLEX fonts.)
+Therefore, a special set of functionality has been created to suppliment JSCAD.</p>
+</dd>
+</dl>
 
-> This project contains a set of functions that produce 2D outlines of text using TTF fonts.
+## Constants
 
-## Overview
+<dl>
+<dt><a href="#loadFont">loadFont</a> ⇒ <code>Font</code></dt>
+<dd><p>Load the font description from the given file path.</p>
+</dd>
+<dt><a href="#loadFontFromData">loadFontFromData</a> ⇒ <code>Font</code></dt>
+<dd><p>Load the font description from the given data.</p>
+</dd>
+<dt><a href="#loadGoogleFont">loadGoogleFont</a> ⇒ <code>Font</code></dt>
+<dd><p>Load the font from the Google Fonts website, using the given family and variant.</p>
+<p>This function is asycronous, and fetchs the data via the given fetch function.
+This is required due to the fetching of data across the internet via HTTP protocols.</p>
+</dd>
+<dt><a href="#loadWebFont">loadWebFont</a> ⇒ <code>Font</code></dt>
+<dd><p>Load the font from a website using the given URL.</p>
+<p>This function is asycronous, and fetchs the data via the given fetch function.
+This is required due to the fetching of data across the internet via HTTP protocols.</p>
+</dd>
+<dt><a href="#textToGeom2">textToGeom2</a> ⇒ <code>Object</code></dt>
+<dd><p>Convert the given text to a geom2 object.</p>
+<p>The paths are created based on the original Font glyphs, and scaled to the fontSize.</p>
+</dd>
+<dt><a href="#textToPaths">textToPaths</a> ⇒ <code>Array</code></dt>
+<dd><p>Convert the given text to a set of outline paths.</p>
+<p>The paths are created based on the original Font glyphs, and scaled to the fontSize.</p>
+<p>The paths may or may not be closed. See textToGeom2 for additional options.</p>
+</dd>
+</dl>
+
+<a name="jscad-text"></a>
+
+## jscad-text : <code>object</code>
+Create Outlines of Text using TTF fonts
 
 The JSCAD project does not provide the ability to use TTF fonts when creating outlines of text (It only supports SIMPLEX fonts.)
 Therefore, a special set of functionality has been created to suppliment JSCAD.
 
-NOTE: Due to the nature of TTF fonts this library cannot be used via the JSCAD Web UI. Keep reading...
+**Kind**: global namespace  
+**License**: MIT  
+<a name="loadFont"></a>
 
-Basically, this library depends on the 'opentype.js' library.
-It's a really cool library which does some slick stuff; uncompresses the font, reads the contents, and produces SVG like structures.
+## loadFont ⇒ <code>Font</code>
+Load the font description from the given file path.
 
-But even before that, a TTF font file must be available.
-All operating systems come with one or more fonts, and those can be used, if you can find them.
-Fonts can also be downloaded from websites.
+**Kind**: global constant  
+**Returns**: <code>Font</code> - new font object which contains the contents of the font  
 
-There are two examples; one which reads local font files, and one that downloads fonts from Google Fonts.
+| Param | Type | Description |
+| --- | --- | --- |
+| path | <code>String</code> | path to local file, i.e. font |
 
-## Table of Contents
-
-- [Installation](#installation)
-- [Examples](#examples)
-- [Projects](#projects)
-- [Websites](#websites)
-- [Special Note](#special-note)
-- [License](#license)
-
-## Installation
-
-For Node.js based projects, this package can be installed using NPM.
+**Example**  
+```js
+const filePath = "./fonts/Habana.ttf"
+const font = loadFont(filePath)
 ```
-npm install jscad-text
+<a name="loadFontFromData"></a>
+
+## loadFontFromData ⇒ <code>Font</code>
+Load the font description from the given data.
+
+**Kind**: global constant  
+**Returns**: <code>Font</code> - new font object which contains the contents of the font  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| data | <code>ArrayBuffer</code> | raw data from font file |
+
+**Example**  
+```js
+const fontData = await response.arrayBuffer()
+const font = loadFontFromData(fontData)
 ```
+<a name="loadGoogleFont"></a>
 
-For standalone projects, this package can be downloaded and included as a component.
-- Download the package from GitHub
-- Unzip the contents, which will produce a directory called 'jscad-text'
-- Copy the 'jscad-text' directory into the larger project
+## loadGoogleFont ⇒ <code>Font</code>
+Load the font from the Google Fonts website, using the given family and variant.
 
-## Examples
+This function is asycronous, and fetchs the data via the given fetch function.
+This is required due to the fetching of data across the internet via HTTP protocols.
 
-Each of the eamples is a small stand-alone NPM project; localfont and googlefont.
+**Kind**: global constant  
+**Returns**: <code>Font</code> - new font object which contains the contents of the font  
+**See**: https://developers.google.com/fonts/
 
-### Local Font Project
+NOTE: See the console output for hints about available variants.  
 
-This project is the easiest to use, as fonts are read from local files.
-Just find a nice font, and copy the file into the localFont folder.
-- MacOS : see /Library/Fonts or /System/Library/Fonts
-- Windows :
-- Linux : 
+| Param | Type | Description |
+| --- | --- | --- |
+| family | <code>String</code> | family name of font to load |
+| variant | <code>String</code> | variant name of font to load |
+| fetch | <code>function</code> | function to use for fetching the font from Google |
 
-Setup:
+**Example**  
+```js
+// see the examples for additional information
+const font = await loadGoogleFont(family, variant, fetchFunc)
 ```
-npm install
+<a name="loadWebFont"></a>
 
-cd examples/localfont
+## loadWebFont ⇒ <code>Font</code>
+Load the font from a website using the given URL.
 
-npm install
+This function is asycronous, and fetchs the data via the given fetch function.
+This is required due to the fetching of data across the internet via HTTP protocols.
+
+**Kind**: global constant  
+**Returns**: <code>Font</code> - new font object which contains the contents of the font  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| fontUrl | <code>String</code> | URL of font file to load |
+| fetch | <code>function</code> | function to use for fetching the font from Google |
+
+**Example**  
+```js
+// see the examples for additional information
+const fontUrl = "http://72.62.112.88/v3/docs/fonts/Montserrat/Montserrat-Regular.ttf"
+const font = await loadWebFont(fontUrl, fetchFunc)
 ```
+<a name="textToGeom2"></a>
 
-Execution:
+## textToGeom2 ⇒ <code>Object</code>
+Convert the given text to a geom2 object.
+
+The paths are created based on the original Font glyphs, and scaled to the fontSize.
+
+**Kind**: global constant  
+**Returns**: <code>Object</code> - A geom2 object  
+**See**: Font.getPath() at https://github.com/opentypejs/opentype.js#fontgetpathtext-x-y-fontsize-options  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| options | <code>Object</code> |  | options for the conversion |
+| options.font | <code>Font</code> |  | the font representing a loaded OpenType font file |
+| [options.fontSize] | <code>Number</code> | <code>72</code> | size of the text in pixels |
+| [options.fontOptions] | <code>Object</code> | <code>{}</code> | options passed through to Font.getPath(),   e.g. kerning, features (liga, rlig, etc.), hinting. The opentype.js defaults apply.   See https://github.com/opentypejs/opentype.js#fontgetpathtext-x-y-fontsize-options |
+| [options.segments] | <code>Number</code> | <code>32</code> | number of segments to create per full rotation |
+| [options.center] | <code>Array</code> | <code>[true, true]</code> | centering options for the X and Y axes;   true, false, or the center coordinate in mm. Y centering is based on the font cap height. |
+| text | <code>String</code> |  | text of which to convert to geom2 |
+
+**Example**  
+```js
+const font = await loadWebFont(fontFileUrl, fetchFunc)
+let paths = textToGeom2({font, fontSize: 96, segments: 72}, 'JSCAD is awesome!!!')
 ```
-npm run cli
+<a name="textToPaths"></a>
+
+## textToPaths ⇒ <code>Array</code>
+Convert the given text to a set of outline paths.
+
+The paths are created based on the original Font glyphs, and scaled to the fontSize.
+
+The paths may or may not be closed. See textToGeom2 for additional options.
+
+**Kind**: global constant
+**Returns**: <code>Array</code> - list of outline paths, i.e. Path2
+**See**: Font.getPath() at https://github.com/opentypejs/opentype.js#fontgetpathtext-x-y-fontsize-options  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| options | <code>Object</code> |  | options for the conversion |
+| options.font | <code>Font</code> |  | the font representing a loaded OpenType font file |
+| [options.fontSize] | <code>Number</code> | <code>72</code> | size of the text in pixels |
+| [options.fontOptions] | <code>Object</code> | <code>{}</code> | options passed through to Font.getPath(),   e.g. kerning, features (liga, rlig, etc.), hinting. The opentype.js defaults apply.   See https://github.com/opentypejs/opentype.js#fontgetpathtext-x-y-fontsize-options   Note: hinting is only needed for rasterization from vector data; it should not be   needed for vector output such as JSCAD paths. |
+| [options.center] | <code>Array</code> | <code>[false, false]</code> | centering options for the X and Y axes;   true, false, or the center coordinate in mm. Y centering is based on the font cap height. |
+| [options.segments] | <code>Number</code> | <code>32</code> | number of segments to create per full rotation |
+| [options.forceClose] | <code>Boolean</code> | <code>false</code> | force closure of paths, as some fonts do not |
+| text | <code>String</code> |  | text of which to convert to outlines |
+
+**Example**  
+```js
+const font = await loadWebFont(fontFileUrl, fetchFunc)
+let paths = textToPaths({font, fontSize: 96, segments: 72}, 'JSCAD is awesome!!!')
 ```
-And open 'index.svg' using any browser.
-
-The contents of 'index.js' can be modified to change the path to the font file, or change the options to the textToPaths() function.
-This is also a typical JSCAD design, and can be nodified to do whatever you want with the paths.
-
-### Google Font Project
-
-This project obtains fonts from the [Google Fonts website](https://fonts.google.com/).
-Just go there, find a nice font 'family', and write down the name.
-
-Another cool library called 'node-fetch' is being used to download the font from the internet.
-
-Setup:
-```
-npm install
-
-cd examples/googlefont
-
-npm install
-```
-
-Execution:
-```
-npm run cli
-```
-And open 'test.svg' using any browser.
-
-## Projects
-
-Still there...
-
-So, here's how to use this library inside a JSCAD design (project).
-
-If not already, create a new folder for the project. (This example is using 'newproject' as the folder name.)
-
-Download this package by clicking on the green 'CODE' button, and select 'Download ZIP'.
-Then unzip the contents.
-
-Copy the dist/jscad-text.commonjs.js file into the project, i.e. the 'newproject' directory.
-
-Now, find a font, and copy that into the project folder.
-
-Inside the project folder, create a file called index.js, and add the following code.
-```
-const { primitives } = require('@jscad/modeling')
-
-const { loadFontFromData, textToPaths } = require('./jscad-text.commonjs.js')
-
-const fs = require('fs')
-
-const main = (params) => {
-  const data = fs.readFileSync('newproject/Habana.ttf') // CHANGE THIS TO THE FONT FILE NAME
-
-  const font = loadFontFromData(data)
-
-  const paths = textToPaths({font, segments: 144}, 'JSCAD ROCKS!!')
-
-  return paths
-}
-
-module.exports = { main }
-```
-
-The project folder (newproject) should now have the following contents.
-```
-    index.js
-    jscad-text.commonjs.js
-    Habana.ttf
-```
-
-Done!
-
-Now, just drag and drop the project folder onto the JSCAD design website.
-
-## Websites
-
-This project builds packages for use in websites; dist/jscad-text.min.js.
-It's only provided in UMD format, which exposes a global variable called jscadText.
-
-Here's how to use it.
-```
-const { booleans, colors, primitives } = jscadModeling
-const { loadFontFromData, textToPaths } = jscadText
-
-const demo = async (parameters) => {
-  // fetch the font into a buffer
-  const buffer = await fetch('./dist/Habana.ttf').then(res => res.arrayBuffer());
-  // convert the buffer to a opentype font
-  const font = loadFontFromData(buffer)
-  // create JSCAD paths using the font
-  const paths = textToPaths({ font }, "JSCAD Rocks!")
-  return paths
-}
-```
-
-JSCAD modeling is required to use this package, and can be sourced from any of the JS delivery sites.
-```
-<script language="javascript" src="https://unpkg.com/@jscad/modeling"></script>
-```
-
-
-## Special Note
-
-**THIS PROJECT ONLY WORKS WITH JSCAD V2.**
-
-See the [User Guide](https://openjscad.xyz/guide.html) for some tips.
-
-## License
-
-[The MIT License (MIT)](./LICENSE)
-

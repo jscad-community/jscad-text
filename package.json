@@ -1,24 +1,19 @@
 {
   "name": "jscad-text",
-  "version": "3.0.3",
+  "version": "4.0.0",
   "description": "JSCAD module to convert text to 2D paths, using TTF (and other) fonts",
-  "type": "commonjs",
-  "main": "./dist/src/index.js",
-  "exports": "./dist/src/index.js",
-  "browser": "./dist/jscad-text.min.js",
-  "types": "./dist/src/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/src/index.d.ts",
-      "require": "./dist/src/index.js",
-      "browser": "./dist/jscad-text.min.js",
-      "default": "./dist/src/index.js"
-    }
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jscad-community/jscad-text.git"
   },
+  "type": "module",
+  "main": "./src/index.js",
+  "unpkg": "./dist/jscad-text.js",
+  "jsdelivr": "./dist/jscad-text.js",
   "scripts": {
-    "compile": "tsc --target es6 --module commonjs",
-    "package": "rollup --config",
-    "test": "ava '**/*.test.ts'"
+    "build": "rollup --config",
+    "tests": "ava 'tests/*.test.js'",
+    "docs": "jsdoc2md --files 'src/*.js' > README.md"
   },
   "keywords": [
     "jscad",
@@ -30,24 +25,17 @@
   "author": "z3dev",
   "license": "MIT",
   "dependencies": {
-    "@jscad/modeling": "^2.12.0",
-    "opentype.js": "^1.3.0"
+    "@jscad/modeling": "3.0.6-alpha.0",
+    "opentype.js": "^2.0.0"
   },
   "devDependencies": {
-    "@ava/typescript": "^5.0.0",
-    "@rollup/plugin-commonjs": "^28.0.3",
-    "@rollup/plugin-node-resolve": "^16.0.1",
-    "@types/opentype.js": "^1.3.0",
-    "ava": "^6.1.0",
-    "rollup": "^4.40.0",
-    "typescript": "^5.5.0"
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "@rollup/plugin-terser": "^0.4.0",
+    "ava": "^6.3.0",
+    "jsdoc-to-markdown": "^9.1.3",
+    "rollup": "^4.52.0"
   },
-  "ava": {
-    "typescript": {
-      "rewritePaths": {
-        "tests/": "dist/tests/"
-      },
-      "compile": false
-    }
+  "publishConfig": {
+    "access": "public"
   }
 }
